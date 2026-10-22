@@ -1,21 +1,53 @@
-import { getAuth } from "@/lib/better-auth/auth";
-import { headers } from "next/headers";
-import { redirect } from "next/navigation";
+import TradingViewWidget from "@/components/TradingViewWidget";
+import {
+    HEATMAP_WIDGET_CONFIG,
+    MARKET_DATA_WIDGET_CONFIG,
+    MARKET_OVERVIEW_WIDGET_CONFIG,
+    TOP_STORIES_WIDGET_CONFIG,
+} from "@/lib/constants";
 
-export default async function StocksPage() {
-    const auth = await getAuth();
-    const session = await auth.api.getSession({
-        headers: await headers(),
-    });
-
-    if (!session?.user) {
-        redirect("/sign-in");
-    }
+// Public dashboard. Sign-in/sign-up pages are not part of this repository (see README),
+// so this page must not redirect to them.
+export default function Home() {
+    const scriptUrl = "https://s3.tradingview.com/external-embedding/embed-widget-";
 
     return (
-        <>
-            <div>Stocks Dashboard</div>
-            <img src="https://ik.imagekit.io/a6fkjou7d/dashboard-preview.png?updatedAt=1756378548102" alt="Puffer Dashboard Preview" width="100%" style={{width: "520px", width: "100%", height: "auto"}}/>
-        </>
-    )
+        <div className="flex min-h-screen home-wrapper">
+            <section className="grid w-full gap-8 home-section">
+                <div className="md:col-span-1 xl:col-span-1">
+                    <TradingViewWidget
+                        title="Market Overview"
+                        scriptUrl={`${scriptUrl}market-overview.js`}
+                        config={MARKET_OVERVIEW_WIDGET_CONFIG}
+                        className="custom-chart"
+                        height={600}
+                    />
+                </div>
+                <div className="md:col-span-1 xl:col-span-2">
+                    <TradingViewWidget
+                        title="Stock Heatmap"
+                        scriptUrl={`${scriptUrl}stock-heatmap.js`}
+                        config={HEATMAP_WIDGET_CONFIG}
+                        height={600}
+                    />
+                </div>
+            </section>
+            <section className="grid w-full gap-8 home-section">
+                <div className="h-full md:col-span-1 xl:col-span-1">
+                    <TradingViewWidget
+                        scriptUrl={`${scriptUrl}timeline.js`}
+                        config={TOP_STORIES_WIDGET_CONFIG}
+                        height={600}
+                    />
+                </div>
+                <div className="h-full md:col-span-1 xl:col-span-2">
+                    <TradingViewWidget
+                        scriptUrl={`${scriptUrl}market-quotes.js`}
+                        config={MARKET_DATA_WIDGET_CONFIG}
+                        height={600}
+                    />
+                </div>
+            </section>
+        </div>
+    );
 }

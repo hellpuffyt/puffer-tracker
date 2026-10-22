@@ -31,7 +31,8 @@ export const connectToDatabase = async () => {
         throw err;
     }
 
-    console.log(`Connected to database ${process.env.NODE_ENV} - ${MONGODB_URI}`);
+    // Never log MONGODB_URI: it usually contains the database password.
+    console.log(`Connected to database (${process.env.NODE_ENV})`);
 
     return cached.conn;
 }

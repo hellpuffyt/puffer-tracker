@@ -4,11 +4,8 @@ import NavItems from "@/components/NavItems";
 import UserDropdown from "@/components/UserDropdown";
 import {searchStocks} from "@/lib/actions/finnhub.actions";
 
-const Header = async ({ user }: { user: User }) => {
+const Header = async ({ user }: { user?: User }) => {
     const initialStocks = await searchStocks();
-
-
-    console.log("user from header is ", user)
 
     return (
         <header className="sticky top-0 header">
@@ -20,7 +17,7 @@ const Header = async ({ user }: { user: User }) => {
                     <NavItems initialStocks={initialStocks} />
                 </nav>
 
-                <UserDropdown user={user} initialStocks={initialStocks} />
+                {user && <UserDropdown user={user} initialStocks={initialStocks} />}
             </div>
         </header>
     )

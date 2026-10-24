@@ -15,7 +15,7 @@ export const sendWelcomeEmail = async ({ email, name, intro }: WelcomeEmailData)
         .replace('{{intro}}', intro);
 
     const mailOptions = {
-        from: `"Puffer" <Puffer@jsmastery.pro>`,
+        from: `"Puffer" <${process.env.NODEMAILER_EMAIL}>`,
         to: email,
         subject: `Welcome to Puffer - your stock market toolkit is ready!`,
         text: 'Thanks for joining Puffer',
@@ -33,7 +33,7 @@ export const sendNewsSummaryEmail = async (
         .replace('{{newsContent}}', newsContent);
 
     const mailOptions = {
-        from: `"Puffer News" <Puffer@jsmastery.pro>`,
+        from: `"Puffer News" <${process.env.NODEMAILER_EMAIL}>`,
         to: email,
         subject: `📈 Market News Summary Today - ${date}`,
         text: `Today's market news summary from Puffer`,

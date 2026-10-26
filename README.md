@@ -97,4 +97,13 @@ as described in [SECURITY.md](SECURITY.md). Keep keys in `.env.local`; `.env*` f
 git-ignored.
 
 ## Contributing
-See [CONTRIBUTING.md](CONTRIBUTING.md). The repository has no license file.
+See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## License
+
+None. This app started from the JavaScript Mastery "Signalist" tutorial
+([adrianhajdin/signalist_stock-tracker-app](https://github.com/adrianhajdin/signalist_stock-tracker-app)),
+and that repository publishes no license: there is no LICENSE file, no `license` field in its
+`package.json`, and no reuse terms in its README (checked 2026-10-26). Without a license from the
+original author I can't grant rights to the code derived from it, so this repository has no license
+either and all rights stay with the respective authors. Read the code for learning; don't reuse it.
